@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Партнер Бізнес Груп — Демонтаж споруд</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #F5A900;
+      --navy:   #1C2B5A;
+      --dark:   #1A1A1A;
+      --gray:   #F7F7F7;
+      --text:   #333333;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: #fff;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────── */
+    header {
+      background: #fff;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 72px;
+    }
+
+    .logo-text {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.3;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .header-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .header-contacts a {
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-contacts a:hover { color: var(--yellow); }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--yellow); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 560px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      opacity: .75;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(28,43,90,.75) 40%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    .hero-overlay h1 {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1.2;
+      max-width: 620px;
+    }
+
+    .hero-overlay h1 span { color: var(--yellow); }
+
+    .hero-overlay p {
+      margin-top: 20px;
+      color: rgba(255,255,255,.88);
+      font-size: 16px;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 14px 36px;
+      background: var(--yellow);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover { background: #d68f00; transform: translateY(-2px); }
+
+    /* ─── SECTION COMMON ─────────────────────────────────── */
+    section { padding: 72px 40px; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-title {
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .section-title span { color: var(--yellow); }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--navy);
+      margin-bottom: 32px;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 820px;
+      margin-bottom: 40px;
+    }
+
+    /* decorative stripe accent */
+    .stripe-accent {
+      position: absolute;
+      top: 0; right: 0;
+      width: 70px;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .stripe-accent::before,
+    .stripe-accent::after {
+      content: '';
+      position: absolute;
+      right: -18px;
+      width: 34px;
+      background: var(--yellow);
+      transform: skewX(-14deg);
+    }
+
+    .stripe-accent::before { top: 0; height: 55%; opacity: .9; }
+    .stripe-accent::after  { bottom: 0; height: 55%; opacity: .5; }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    #about {
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-grid img {
+      width: 100%;
+      border-radius: 4px;
+      object-fit: cover;
+      max-height: 340px;
+    }
+
+    .about-body p {
+      font-size: 15px;
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .about-body strong { font-weight: 700; color: var(--navy); }
+
+    .client-list { margin-top: 24px; }
+
+    .client-list h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .client-list ul { list-style: none; }
+
+    .client-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .client-list li::before {
+      content: '▶';
+      color: var(--yellow);
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* ─── EQUIPMENT ───────────────────────────────────────── */
+    #equipment {
+      background: var(--gray);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .equip-card {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      transition: box-shadow .2s;
+    }
+
+    .equip-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+
+    .equip-card-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .equip-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 220px;
+      display: block;
+    }
+
+    .equip-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: var(--yellow);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .equip-card-body {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .equip-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .equip-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+
+    .equip-count {
+      width: 32px;
+      height: 32px;
+      background: var(--yellow);
+      border-radius: 50%;
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .equip-specs {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .equip-specs tr {
+      border-bottom: 1px solid #eee;
+    }
+
+    .equip-specs td {
+      padding: 7px 0;
+      font-size: 13px;
+    }
+
+    .equip-specs td:first-child { color: #666; }
+
+    .equip-specs td:last-child {
+      text-align: right;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ─── SERVICES ────────────────────────────────────────── */
+    #services {
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .service-card {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      background: #fff;
+      transition: box-shadow .2s;
+    }
+
+    .service-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.14); }
+
+    .service-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .service-card-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px 20px;
+    }
+
+    .service-num {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .service-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .extra-services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 48px;
+      margin-top: 16px;
+    }
+
+    .extra-services ul { list-style: none; }
+
+    .extra-services li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      padding: 8px 0;
+      line-height: 1.5;
+      border-bottom: 1px solid #eee;
+    }
+
+    .extra-services li::before {
+      content: '▶';
+      color: var(--yellow);
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* ─── CTA BAND ────────────────────────────────────────── */
+    .cta-band {
+      background: var(--navy);
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(20px, 3vw, 34px);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cta-band h2 span { color: var(--yellow); }
+
+    .cta-band p {
+      color: rgba(255,255,255,.78);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: #111;
+      color: rgba(255,255,255,.65);
+      padding: 48px 40px 28px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .footer-logo .logo-text { color: #fff; }
+
+    .footer-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .footer-contacts a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .2s;
+    }
+
+    .footer-contacts a:hover { color: var(--yellow); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      header { flex-wrap: wrap; gap: 14px; padding: 14px 20px; }
+      nav { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .equip-card { grid-template-columns: 1fr; }
+      .equip-card-img img { min-height: 200px; max-height: 240px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .extra-services { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      section { padding: 48px 20px; }
+      .hero-overlay { padding: 0 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .equip-card { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ HEADER -->
+<header>
+  <div class="logo-wrap">
+    <!-- SVG-логотип (трактор + горы) плюс подпись -->
+    <svg class="logo-icon" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- горы -->
+      <polygon points="10,50 30,20 50,50" fill="#1C2B5A" opacity=".15"/>
+      <polygon points="28,50 48,10 68,50" fill="#F5A900" opacity=".85"/>
+      <polygon points="40,50 58,22 76,50" fill="#1C2B5A" opacity=".4"/>
+    </svg>
+    <div>
+      <div class="logo-text">Партнер<br>Бізнес Груп</div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#about">Про нас</a>
+    <a href="#equipment">Техніка</a>
+    <a href="#services">Послуги</a>
+    <a href="#contact">Контакти</a>
+  </nav>
+
+  <div class="header-contacts">
+    <a href="#">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#F5A900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      м.Кривий Ріг, вул. Волгоградська, 15
+    </a>
+    <a href="mailto:partnerbusinessgroup646464@gmail.com">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#F5A900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/>
+      </svg>
+      partnerbusinessgroup646464@gmail.com
+    </a>
+    <a href="tel:+380972577741">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#F5A900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+      </svg>
+      +38-097-257-77-41 &nbsp; +38-097-864-64-64
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════ HERO -->
+<div class="hero">
+  <img src="1.jpg" alt="Партнер Бізнес Груп — демонтаж споруд" />
+  <div class="hero-overlay">
+    <h1>Демонтаж<br>споруд <span>будь-якої<br>складності</span></h1>
+    <p>ТОВ «ПАРТНЕР БІЗНЕС ГРУП» — власна важка техніка, висококваліфіковані спеціалісти, переробка відходів на вторинний щебінь.</p>
+    <a href="#contact" class="btn">Отримати консультацію</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title"><span>Про</span> нашу компанію</h2>
+        <div class="section-divider"></div>
+        <div class="about-body">
+          <p>Основним напрямком діяльності ТОВ «ПАРТНЕР БІЗНЕС ГРУП» є <strong>демонтаж споруд і промислових об'єктів</strong>, а також переробка відходів після демонтажу (бетонних виробів) у вторинний щебінь кар'єрною дробилкою <strong>Sanvik QJ340</strong>.</p>
+          <p>Завдяки наявності особистої техніки, висококваліфікованим спеціалістам і робочим у штаті — ми виконуємо роботи з демонтажу <strong>власними силами</strong>, без залучення сторонніх підрядних організацій.</p>
+          <p>Наш парк складається переважно з важкої техніки і спеціалізованого навісного обладнання, що дозволяє проводити роботи по зносу споруд високого типу, руйнуванню залізобетону і важких монолітних фундаментів у значно коротші строки.</p>
+        </div>
+
+        <div class="client-list">
+          <h4>Наша компанія здійснювала демонтаж споруд різної складності:</h4>
+          <ul>
+            <li>Суднобудівний завод «Океан» м.Миколаїв</li>
+            <li>Тракторно-будівельний завод м.Рівне</li>
+            <li>Долотний завод м.Дрогич</li>
+            <li>Метінвест</li>
+            <li>АрселорМіттал м.Кривий Ріг</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <img src="1.jpg" alt="Демонтаж споруди" style="border-radius:4px; max-height:480px; width:100%; object-fit:cover; object-position:center 60%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ EQUIPMENT -->
+<section id="equipment">
+  <div class="section-inner" style="position:relative;">
+    <h2 class="section-title" style="text-align:center;"><span>Наша</span> техніка</h2>
+    <div class="section-divider" style="margin:0 auto 12px;"></div>
+    <p class="section-subtitle" style="text-align:center; margin:0 auto 40px;">
+      Ми володіємо великим парком спецтехніки, зокрема ексклюзивними транспортними засобами, яких не має у інших компаній
+    </p>
+
+    <!-- Екскаватори -->
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="2.jpg" alt="VOLVO EC 240" style="object-position:0 30%;" />
+        <span class="equip-badge">Гусеничний екскаватор</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">VOLVO EC 240</span>
+          <span class="equip-count">2</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Маса в робочому стані</td><td>24,3 т</td></tr>
+          <tr><td>Ширина ковшу</td><td>3190 мм</td></tr>
+          <tr><td>Сила зачерпування</td><td>121,6 кН</td></tr>
+          <tr><td>Об'єм ковшу</td><td>1,3 м/куб</td></tr>
+          <tr><td>Горизонтальний виліт</td><td>9690 мм</td></tr>
+          <tr><td>Глибина копання</td><td>6980 мм</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="2.jpg" alt="JCB 360" style="object-position:0 45%;" />
+        <span class="equip-badge">Гусеничний екскаватор</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">JCB 360</span>
+          <span class="equip-count">2</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Маса в робочому стані</td><td>38 т</td></tr>
+          <tr><td>Ширина ковшу</td><td>3190 мм</td></tr>
+          <tr><td>Сила зачерпування</td><td>121,6 кН</td></tr>
+          <tr><td>Об'єм ковшу</td><td>2,5 м/куб</td></tr>
+          <tr><td>Горизонтальний виліт</td><td>9690 мм</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="2.jpg" alt="VOLVO EC 290" style="object-position:0 60%;" />
+        <span class="equip-badge">Гусеничний екскаватор</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">VOLVO EC 290</span>
+          <span class="equip-count">3</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Маса в робочому стані</td><td>29 т</td></tr>
+          <tr><td>Ширина ковшу</td><td>2190 мм</td></tr>
+          <tr><td>Сила зачерпування</td><td>121,6 кН</td></tr>
+          <tr><td>Об'єм ковшу</td><td>2 м/куб</td></tr>
+          <tr><td>Горизонтальний виліт</td><td>9690 мм</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="2.jpg" alt="HITACHI ZX 460 LC DEMOLITION" style="object-position:0 75%;" />
+        <span class="equip-badge">Для зносу високих споруд</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">HITACHI ZX 460 LC DEMOLITION</span>
+          <span class="equip-count">2</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Довжина стріли</td><td>30 м</td></tr>
+          <tr><td>Транспортна довжина</td><td>11,83 м</td></tr>
+          <tr><td>Висота в транспортному стані</td><td>3,3 м</td></tr>
+          <tr><td>Вага</td><td>45,8 т</td></tr>
+          <tr><td>Транспортна ширина</td><td>3,49 м</td></tr>
+          <tr><td>Ширина гусениць</td><td>600 мм</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="2.jpg" alt="SANDVIC QJ 340" style="object-position:0 90%;" />
+        <span class="equip-badge">Щовковична дробилка</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">SANDVIC QJ 340</span>
+          <span class="equip-count">2</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Продуктивність</td><td>400 т/г</td></tr>
+          <tr><td>Ширина (робоча)</td><td>4108 мм</td></tr>
+          <tr><td>Висота в транспортному стані</td><td>3,65 м</td></tr>
+          <tr><td>Об'єм бункера живлення</td><td>6,4 м/куб</td></tr>
+          <tr><td>Довжина (робоча)</td><td>15750 мм</td></tr>
+          <tr><td>Маса</td><td>46 300 кг</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Транспорт -->
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="3.jpg" alt="DAF FT XF 105.460" style="object-position:0 10%;" />
+        <span class="equip-badge">Самоскиди</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">DAF FT XF 105.460</span>
+          <span class="equip-count">7</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Вантажопідйомність</td><td>40 т</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="3.jpg" alt="ПЛАТФОРМА BROSHUIS 4AOU16-40" style="object-position:0 30%;" />
+        <span class="equip-badge">Спеціалізований напівпричіп</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">ПЛАТФОРМА BROSHUIS 4AOU16-40</span>
+          <span class="equip-count">3</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Повна маса</td><td>58 000 кг</td></tr>
+          <tr><td>Маса без навантаження</td><td>10 830 кг</td></tr>
+          <tr><td>Висота платформи</td><td>0,9 см</td></tr>
+          <tr><td>Осі</td><td>4</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="3.jpg" alt="ПЛАТФОРМА NOOTEBOOM" style="object-position:0 52%;" />
+        <span class="equip-badge">Спеціалізований напівпричіп</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">ПЛАТФОРМА NOOTEBOOM</span>
+          <span class="equip-count">2</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Повна маса</td><td>45 000 кг</td></tr>
+          <tr><td>Маса без навантаження</td><td>15 200 кг</td></tr>
+          <tr><td>Висота платформи</td><td>0,8 см</td></tr>
+          <tr><td>Осі</td><td>3</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-card-img">
+        <img src="3.jpg" alt="Автокрани" style="object-position:0 72%;" />
+        <span class="equip-badge">Автокрани</span>
+      </div>
+      <div class="equip-card-body">
+        <div class="equip-card-header">
+          <span class="equip-name">АВТОКРАНИ</span>
+          <span class="equip-count" style="background:var(--navy);">—</span>
+        </div>
+        <table class="equip-specs">
+          <tr><td>Маса</td><td style="color:var(--yellow);">від 14 до 60 т</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ SERVICES -->
+<section id="services">
+  <div class="section-inner" style="position:relative;">
+    <h2 class="section-title"><span>Послуги</span> нашої компанії</h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle">
+      «ПАРТНЕР БІЗНЕС ГРУП» спеціалізується на демонтажі споруд і промислових об'єктів різного масштабу
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="4.jpg" alt="Промисловий демонтаж" style="object-position:0 10%;" />
+        <div class="service-card-label">
+          <span class="service-num">01</span>
+          <span class="service-title">Промисловий<br>демонтаж</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="4.jpg" alt="Переробка будматеріалів" style="object-position:100% 10%;" />
+        <div class="service-card-label">
+          <span class="service-num">02</span>
+          <span class="service-title">Переробка<br>будматеріалів</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="4.jpg" alt="Усі види земляних робіт" style="object-position:0 60%;" />
+        <div class="service-card-label">
+          <span class="service-num">03</span>
+          <span class="service-title">Усі види<br>земляних робіт</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="4.jpg" alt="Підготовчі роботи на будмайданчику" style="object-position:100% 60%;" />
+        <div class="service-card-label">
+          <span class="service-num">04</span>
+          <span class="service-title">Підготовчі роботи<br>на будмайданчику</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-services">
+      <ul>
+        <li>Монолітно-бетонні роботи будь-якої складності</li>
+        <li>Зварювальні роботи</li>
+        <li>Монтаж металоконструкцій</li>
+        <li>Послуги автокрану</li>
+      </ul>
+      <ul>
+        <li>Негабаритні перевезення по Україні</li>
+        <li>Монтаж інженерних мереж (електрозабезпечення, опалення, водопостачання, водовідведення, дренаж, каналізація, вентиляція та кондиціонування)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ CTA -->
+<div class="cta-band" id="contact">
+  <div style="max-width:700px; margin:0 auto;">
+    <h2>Замовте <span>безкоштовну</span> консультацію</h2>
+    <p>Наші фахівці нададуть точну оцінку вашого об'єкта та умови співпраці</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="tel:+380972577741" class="btn">+38-097-257-77-41</a>
+      <a href="tel:+380978646464" class="btn" style="background:transparent; border:2px solid var(--yellow); color:var(--yellow);">+38-097-864-64-64</a>
+    </div>
+    <p style="margin-top:20px; font-size:13px; color:rgba(255,255,255,.5);">
+      або пишіть: <a href="mailto:partnerbusinessgroup646464@gmail.com" style="color:var(--yellow); text-decoration:none;">partnerbusinessgroup646464@gmail.com</a>
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-wrap" style="margin-bottom:12px;">
+        <svg width="52" height="40" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="10,50 30,20 50,50" fill="#fff" opacity=".15"/>
+          <polygon points="28,50 48,10 68,50" fill="#F5A900" opacity=".85"/>
+          <polygon points="40,50 58,22 76,50" fill="#fff" opacity=".25"/>
+        </svg>
+        <div class="logo-text">Партнер<br>Бізнес Груп</div>
+      </div>
+      <div style="font-size:12px; line-height:1.8; color:rgba(255,255,255,.45);">
+        ТОВ «Партнер Бізнес Груп»<br>
+        м.Кривий Ріг, вул. Волгоградська, 15
+      </div>
+    </div>
+    <div class="footer-contacts">
+      <a href="tel:+380972577741">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+        </svg>
+        +38-097-257-77-41
+      </a>
+      <a href="tel:+380978646464">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+        </svg>
+        +38-097-864-64-64
+      </a>
+      <a href="mailto:partnerbusinessgroup646464@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/>
+        </svg>
+        partnerbusinessgroup646464@gmail.com
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 ТОВ «Партнер Бізнес Груп». Всі права захищені.
+  </div>
+</footer>
+
+</body>
+</html>
